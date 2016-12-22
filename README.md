@@ -25,7 +25,7 @@ Here we just port the functions on client side.
 ###2.1 EMW3162Interface.cpp / EMW3162Interface.h
 In these two files, we need port the APIs both in WIFI Connection and Socket Implementation (including TCP and UDP connection). All those listed APIs need call the detail functions in EMW3162.cpp / EMW3162.h and be called by upper app to implement the WIFI connection and Socket management.
 
-WIFI Connection APIs
+WIFI Connection APIs ([Detail instructions](https://docs.mbed.com/docs/mbed-os-api-reference/en/5.2/APIs/communication/wifi/))
 ```
 - EMW3162Interface: define the EMW3162 Interface class.
 - connect: start the interface, attempt to connect to a WiFi network.
@@ -33,7 +33,7 @@ WIFI Connection APIs
 - *get_ip_address:get the internally stored IP address.
 - *get_mac_address:get the internally stored MAC address.
 ```
-Socket Implementation APIs
+Socket Implementation APIs ([Detail instructions](https://docs.mbed.com/docs/mbed-os-api-reference/en/5.2/APIs/communication/network_sockets/))
 ```
 - socket_open: open a socket.
 - socket_close: close a socket.
@@ -44,8 +44,14 @@ Socket Implementation APIs
 - socket_recvfrom: receive data from a remote host with the specified address when in UDP connection.
 - socket_attach: register a callback on state change of the socket.
 ```
+Please refer to the [source code](https://developer.mbed.org/users/Maggie17/code/emw3162-driver/file/fb6251306b21/EMW3162Interface.cpp) for details.
+
 ###2.2 EMW3162.cpp / EMW3162.h
 These two files mainly implement all the detail functions for the above APIs using the parser interface from ATParser module. It is the most key part in the porting process as details implementation of different WIFI module are quite different, thus nearly all the code need be rewrite. 
+
+We can get all the AT commands for EMW3162 [here](http://www.mxchip.com/download/getFiles/578eed8d253ad.pdf).
+
+For details, please refer to the [source code](https://developer.mbed.org/users/Maggie17/code/emw3162-driver/file/fb6251306b21/emw3162/EMW3162.cpp).
 
 ###2.3 ATParser.cpp / ATParser.h
 In EMW 3162, format of data to be sent is a bit different from ESP8266 (<CR> need be added to the end in EMW 3162 while ESP 8266 needn’t). We add the following code to “ATParser::vsend” function after all the data have been sent out.
