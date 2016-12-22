@@ -18,22 +18,22 @@ Here we just port the functions on client side.
 In these two files, we need port the APIs both in WIFI Connection and Socket Implementation (including TCP and UDP connection).
 WIFI Connection APIs
 ```
-- EMW3162Interface(PinName tx, PinName rx, bool debug = false): define the EMW3162 Interface class.
-- int connect( const char *ssid, const char *pass, nsapi_security_t security = API_SECURITY_NONE ): start the interface, attempts to connect to a WiFi network.
-- int disconnect(): Stop the interface.
-- const char *get_ip_address():get the internally stored IP address.
-- const char *get_mac_address():get the internally stored MAC address.
+- EMW3162Interface: define the EMW3162 Interface class.
+- connect: start the interface, attempt to connect to a WiFi network.
+- disconnect: Stop the interface.
+- *get_ip_address:get the internally stored IP address.
+- *get_mac_address:get the internally stored MAC address.
 ```
 Socket Implementation APIs
 ```
-- int socket_open(void **handle, nsapi_protocol_t proto): open a socket.
-- int socket_close(void *handle): close a socket.
-- int socket_connect(void *handle, const SocketAddress &address): connect the TCP socket to a server with the specified socket address.
-- int socket_send(void *handle, const void *data, unsigned size): send data to the remote host when in TCP connection.
-- int socket_recv(void *handle, void *data, unsigned size): receive data from the remote host when in TCP connection.
-- int socket_sendto(void *handle, const SocketAddress &address, const void *data, unsigned size): send data to a remote host with the specified address when in UDP connection.
-- int socket_recvfrom(void *handle, SocketAddress *address, void *buffer, unsigned size): receive data from a remote host with the specified address when in UDP connection.
-- void socket_attach(void *handle, void (*callback)(void *), void *data): register a callback on state change of the socket.
+- socket_open: open a socket.
+- socket_close: close a socket.
+- socket_connect: connect the TCP socket to a server with the specified socket address.
+- socket_send: send data to the remote host when in TCP connection.
+- socket_recv: receive data from the remote host when in TCP connection.
+- socket_sendto: send data to a remote host with the specified address when in UDP connection.
+- socket_recvfrom: receive data from a remote host with the specified address when in UDP connection.
+- socket_attach: register a callback on state change of the socket.
 ```
 ###2.2. EMW3162.cpp / EMW3162.h
 These two files mainly implement all the detail functions for the above APIs using the parser interface from ATParser module. It is the most key part in the porting process as details implementation of different WIFI module are quite different, thus nearly all the code need be rewrite. 
