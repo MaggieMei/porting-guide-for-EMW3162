@@ -9,11 +9,11 @@ You can find the source code here:
 - [Example project using emw3162-driver and NSAPI](https://developer.mbed.org/users/Maggie17/code/emw3162-driver/)
 
 ##1 Framework Reference
-Here we use the framework inheriting from the [ESP8266 driver](https://github.com/armmbed/esp8266-driver), both of which support the AT command via UART to implement the communication between module and board, shown as below:
+Here we use the framework inheriting from the [ESP8266 driver](https://github.com/armmbed/esp8266-driver), both of which support the AT command via UART to implement the communication between the module and board, shown as below:
 
 ![web page](framework-driver.png)
        
-- `BufferSerial dir`: Software Buffer, mainly extends mbed Serial functionallity adding irq driven TX and RX.
+- `BufferSerial dir`: Software Buffer, mainly extend mbed Serial functionallity adding irq driven TX and RX.
 - `ATParser.cpp / ATParser.h`: Parser for the AT command syntax
 - `EMW3162.cpp / EMW3162.h`: EMW3162Interface class, provide an interface to a EMW3162 radio.
 - `EMW3162Interface.cpp / EMW3162Interface.h`: EMW3162Interface class, implementation of the NetworkStack for the EMW3162
@@ -23,7 +23,7 @@ Usually, when add a new WIFI module using the above framework, we just need rewr
 ##2 API Implementation
 Here we just port the functions on client side.
 ###2.1 EMW3162Interface.cpp / EMW3162Interface.h
-In these two files, we need port the APIs both in WIFI Connection and Socket Implementation (including TCP and UDP connection). All those listed APIs need call the detail functions in EMW3162.cpp / EMW3162.h and be called by upper app to implement the WIFI connection and Socket management.
+In these two files, we need port the APIs both in WIFI Connection and Socket Management (including TCP and UDP connection). All those listed APIs need call the detail functions in EMW3162.cpp / EMW3162.h and be called by upper app to implement the WIFI connection and Socket management.
 
 WIFI Connection APIs ([Detail instructions](https://docs.mbed.com/docs/mbed-os-api-reference/en/5.2/APIs/communication/wifi/))
 ```
@@ -47,14 +47,14 @@ Socket Implementation APIs ([Detail instructions](https://docs.mbed.com/docs/mbe
 Please refer to the [source code](https://developer.mbed.org/users/Maggie17/code/emw3162-driver/file/fb6251306b21/EMW3162Interface.cpp) for details.
 
 ###2.2 EMW3162.cpp / EMW3162.h
-These two files mainly implement all the detail functions for the above APIs using the parser interface from ATParser module. It is the most key part in the porting process as details implementation of different WIFI module are quite different, thus nearly all the code need be rewrite. 
+These two files mainly implement all the detail functions for the above APIs using the parser interface from ATParser module. It is the most key part in the porting process as details implementation of different WIFI module are quite different, thus nearly all the code need be rewritten. 
 
 We can get all the AT commands for EMW3162 [here](http://www.mxchip.com/download/getFiles/578eed8d253ad.pdf).
 
 For details, please refer to the [source code](https://developer.mbed.org/users/Maggie17/code/emw3162-driver/file/fb6251306b21/emw3162/EMW3162.cpp).
 
 ###2.3 ATParser.cpp / ATParser.h
-In EMW 3162, format of data to be sent is a bit different from ESP8266 (<CR> need be added to the end in EMW 3162 while ESP 8266 needn’t). We add the following code to “ATParser::vsend” function after all the data have been sent out.
+In EMW3162, format of data to be sent is a bit different from ESP8266 (<CR> need be added to the end in EMW 3162 while ESP 8266 needn’t). We add the following code to “ATParser::vsend” function after all the data have been sent out.
 ```
 /* Finish with <CR> */
 char s[] = "\x0d";
