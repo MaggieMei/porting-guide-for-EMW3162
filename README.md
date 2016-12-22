@@ -41,7 +41,7 @@ These two files mainly implement all the detail functions for the above APIs usi
 ###2.3. ATParser.cpp / ATParser.h
 In EMW 3162, format of data to be sent is a bit different from ESP8266 (<CR> need be added to the end in EMW 3162 while ESP 8266 needn’t). We add the following code to “ATParser::vsend” function after all the data have been sent out.
 ```
-// Finish with <CRs>
+// Finish with <CR>
 char s[] = "\x0d";
 for (int i = 0; s[i]; i++){
     if(putc(s[i]) < 0)
