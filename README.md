@@ -4,18 +4,21 @@ How to add EMW3162 WIFI module support to NSAPI
 The network-socket API ([NSAPI](https://docs.mbed.com/docs/mbed-os-api-reference/en/5.2/APIs/communication/network_sockets/)) provides a common interface for using sockets on network devices. It’s a class-based interface, which should be familiar to users experienced with other socket APIs. Here’s the porting guide that provides you an example to add WIFI module (EMW3162) support to NSAPI.
 ##1. Framework Reference
 Here we use the framework inheriting from the [ESP8266 driver](https://github.com/armmbed/esp8266-driver), both of which support the AT command via UART to implement the communication between module and board, shown as below:
-```       
+
+![web page](framework-driver.png)]
+       
 - BufferSerial dir: Software Buffer, mainly extends mbed Serial functionallity adding irq driven TX and RX.
 - ATParser.cpp / ATParser.h: Parser for the AT command syntax
 - EMW3162.cpp / EMW3162.h: EMW3162Interface class, provide an interface to a EMW3162 radio.
 - EMW3162Interface.cpp / EMW3162Interface.h: EMW3162Interface class, implementation of the NetworkStack for the EMW3162
-```
+
 Usually, when add a new WIFI module using the above framework, we just need rewrite the EMW3162 interface file (including EMW3162.cpp / EMW3162.h and EMW3162Interface.cpp / EMW3162Interface.h) and might modify the AT parser file (including ATParser.cpp / ATParser.h) slightly according to the format difference of AT command RX & TX in different WIFI modules.
 
 ##2. API Implementation
 Here we just port the functions on client side.
 ###2.1. EMW3162Interface.cpp / EMW3162Interface.h
-In these two files, we need port the APIs both in WIFI Connection and Socket Implementation (including TCP and UDP connection).
+In these two files, we need port the APIs both in WIFI Connection and Socket Implementation (including TCP and UDP connection). All those listed APIs need call the detail functions in EMW3162.cpp / EMW3162.h and be called by upper app to implement the WIFI connection and Socket management.
+
 WIFI Connection APIs
 ```
 - EMW3162Interface: define the EMW3162 Interface class.
@@ -50,6 +53,8 @@ for (int i = 0; s[i]; i++){
 ``` 
 ##3. Target Setting / Module Using
 When using the emw3162 module, the project (HelloEMW3162) must include the emw3162-driver library, NetworkSocketAPI library, mbed library and main.cpp:
+
+![web page](framework-project.png)]
        
 In main.cpp, we need add the following code to define the WIFI interface:
 ```
