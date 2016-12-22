@@ -1,6 +1,7 @@
 # porting-guide-for-EMW3162
-How to add EMW3162 WIFI module support to NSAPI 
-The network-socket API (NSAPI: https://docs.mbed.com/docs/mbed-os-api-reference/en/5.2/APIs/communication/network_sockets/) provides a common interface for using sockets on network devices. It’s a class-based interface, which should be familiar to users experienced with other socket APIs. Here’s the porting guide that provides you an example to add WIFI module (EMW3162) support to NSAPI.
+How to add EMW3162 WIFI module support to NSAPI
+
+The network-socket API [NSAPI](https://docs.mbed.com/docs/mbed-os-api-reference/en/5.2/APIs/communication/network_sockets/) provides a common interface for using sockets on network devices. It’s a class-based interface, which should be familiar to users experienced with other socket APIs. Here’s the porting guide that provides you an example to add WIFI module (EMW3162) support to NSAPI.
 1. Framework Reference
 Here we use the framework inheriting from the ESP8266 driver (https://github.com/armmbed/esp8266-driver), both of which support the AT command via UART to implement the communication between module and board, shown as below:
                
