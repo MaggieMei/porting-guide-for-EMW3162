@@ -25,7 +25,7 @@ Here we just port the functions on client side.
 ### 2.1 EMW3162Interface.cpp / EMW3162Interface.h
 In these two files, we need port the APIs both in WIFI Connection and Socket Management (including TCP and UDP connection). All those listed APIs need call the detail functions in EMW3162.cpp / EMW3162.h and be called by upper app to implement the WIFI connection and Socket management.
 
-WIFI Connection APIs ([Detail instructions](https://docs.mbed.com/docs/mbed-os-api-reference/en/5.2/APIs/communication/wifi/))
+WifiInterface API ([Implementation details](https://docs.mbed.com/docs/mbed-os-api-reference/en/5.2/APIs/communication/wifi/))
 ```
 - EMW3162Interface: define the EMW3162 Interface class.
 - connect: start the interface, attempt to connect to a WiFi network.
@@ -33,7 +33,8 @@ WIFI Connection APIs ([Detail instructions](https://docs.mbed.com/docs/mbed-os-a
 - *get_ip_address:get the internally stored IP address.
 - *get_mac_address:get the internally stored MAC address.
 ```
-Socket Implementation APIs ([Detail instructions](https://docs.mbed.com/docs/mbed-os-api-reference/en/5.2/APIs/communication/network_sockets/))
+NetworkStack API ([Detail instructions](https://docs.mbed.com/docs/mbed-os-api/en/mbed-os-
+5.2/api/classNetworkStack.html))
 ```
 - socket_open: open a socket.
 - socket_close: close a socket.
