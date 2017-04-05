@@ -33,8 +33,7 @@ WifiInterface API ([Implementation details](https://docs.mbed.com/docs/mbed-os-a
 - *get_ip_address:get the internally stored IP address.
 - *get_mac_address:get the internally stored MAC address.
 ```
-NetworkStack API ([Detail instructions](https://docs.mbed.com/docs/mbed-os-api/en/mbed-os-
-5.2/api/classNetworkStack.html))
+NetworkStack API ([Detail instructions](https://docs.mbed.com/docs/mbed-os-api/en/mbed-os-5.2/api/classNetworkStack.html/))
 ```
 - socket_open: open a socket.
 - socket_close: close a socket.
