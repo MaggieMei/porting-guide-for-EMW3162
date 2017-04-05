@@ -23,7 +23,10 @@ Usually, when add a new WIFI module using the above framework, we just need rewr
 ## 2 API Implementation
 Here we just port the functions on client side.
 ### 2.1 EMW3162Interface.cpp / EMW3162Interface.h
-In these two files, we need port the APIs both in WIFI Connection and Socket Management (including TCP and UDP connection). All those listed APIs need call the detail functions in EMW3162.cpp / EMW3162.h and be called by upper app to implement the WIFI connection and Socket management.
+In these two files, we need port the APIs both in WIFI Connection and Socket Management (including TCP and UDP connection). Refer to the source code ([here](https://developer.mbed.org/users/Maggie17/code/emw3162-driver/)), this high level API inherits from NetworkStack and WifiInterface. So the class HAS TO implement the WifiInterface and NetworkStack virtual methods.
+
+Let's grab the function *virtual const char \*get_ip_address()* for an example. It is declared in *NetworkStack*, but implemented in *EMW3162Interface*, and call submodule *EMW3162* to send the corresponding AT command. In this case, "AT+IPCONFIG" is sent to get the internally stored IP address. *EMW3162* is also responsible for parsing the received data and return it back to upper layer *EMW3162Interface*. The *ATParser* offers all the parser API for *EMW3162*, including parser for the data to be sent and receviced. The *BufferedSerial* is responsible for sending data out to module through UART and handling received data once interrupt signal is detected and send it back to *ATParser*. 
+
 
 WifiInterface API ([Implementation details](https://docs.mbed.com/docs/mbed-os-api-reference/en/5.2/APIs/communication/wifi/))
 ```
